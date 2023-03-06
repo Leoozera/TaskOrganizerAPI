@@ -5,12 +5,13 @@ Uma API para sistema de um curso online
 ## Endpoints
 - Cadastro
     - [confirmar](#cadastro)
-    - [Listar](#listarcadastro)
+    - [Listar](#listarCadastro)
 - Principal
     - professores
     - aulas
     - turmas
-    - matéria[]
+    - [matéria](#matéria)
+    - [listar matéria](#listarMateria)
 
 ---
 ### Cadastro
@@ -46,7 +47,7 @@ Uma API para sistema de um curso online
 |400 | campos invalidos
 |400 | dados já registrados
 
-### Listarcadastro
+### ListarCadastro
 `GET` /CursTop/api/cadastro{id}
 
 **Exemplo de corpo de resposta**
@@ -67,3 +68,53 @@ Uma API para sistema de um curso online
 |-|-
 |201 | dados do cadastro retornados 
 |404 | não existe esse cadastro
+
+### Matéria
+
+`POST` /CursTop/api/materia
+
+**Campos da Requisição**
+
+|campo | tipo | obrigatório |descrição |
+|------|------|:-------------:|----------|
+|materia|texto|sim|Palavras chave da matéria|
+
+**Exemplo de corpo de requisição**
+
+```
+{
+    matéria: orientação a objeto
+}
+```
+**Respostas**
+
+|código | descrição |
+|-|-
+|201 | pesquisa concluida
+|400 | campos invalidos
+
+### ListarMateria
+
+`GET` /CursTop/api/materia/listarmateira{id}
+
+**Exemplo de corpo de resposta**
+
+```
+{
+    materia: 
+    Java, Pyhton, C++, C#.
+}
+```
+
+**Codigo de Respostas**
+
+|código | descrição |
+|-|-
+|201 | matérias relacionadas retornadas 
+|404 | não existe matérias relacionadas 
+
+
+
+
+
+
