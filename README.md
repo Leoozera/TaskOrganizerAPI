@@ -54,11 +54,11 @@ Uma API para sistema de um curso online
 
 ```
 {
-    nome: "Pedro"
-    sobrenome: "Vidal"
-    email: "rm93567@fiap.com.br"
-    idade: 18
-    cpf: 405.914.580-71
+    "nome": "Pedro",
+    "sobrenome": "Vidal",
+    "email": "rm93567@fiap.com.br",
+    "dtNascimento": "2004 06 04",
+    "cpf": "405.914.580-71"
 }
 ```
 

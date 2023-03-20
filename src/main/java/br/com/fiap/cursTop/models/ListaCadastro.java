@@ -1,10 +1,10 @@
 package br.com.fiap.cursTop.models;
 
-public class ListarCadastro {
+public class ListaCadastro {
 
     private String cpf;
 
-    public ListarCadastro(String cpf){
+    public ListaCadastro(String cpf){
 
     }
 
