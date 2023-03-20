@@ -64,7 +64,7 @@ Uma API para sistema de um curso online
 
 **Codigo de Respostas**
 
-|código | descrição |
+|código | nome |
 |-|-
 |201 | dados do cadastro retornados 
 |404 | não existe esse cadastro
@@ -75,15 +75,15 @@ Uma API para sistema de um curso online
 
 **Campos da Requisição**
 
-|campo | tipo | obrigatório |descrição |
+|campo | tipo | obrigatório |nome |
 |------|------|:-------------:|----------|
-|materia|texto|sim|Palavras chave da matéria|
+|materia|texto|sim|Nome da materia|
 
 **Exemplo de corpo de requisição**
 
 ```
 {
-    matéria: orientação a objeto
+    matéria: python
 }
 ```
 **Respostas**
@@ -101,8 +101,9 @@ Uma API para sistema de um curso online
 
 ```
 {
-    materia: 
-    Java, Pyhton, C++, C#.
+    "nome": "Pyhton",
+    "Tempo": "8",
+    "Descricao":"Python é uma linguagem de programação de alto nível — ou High Level Language —, dinâmica, interpretada, modular, multiplataforma e orientada a objetos — uma forma específica de organizar softwares onde, a grosso modo, os procedimentos estão submetidos às classes, o que possibilita maior controle e estabilidade de códigos para projetos de grandes proporções."
 }
 ```
 
