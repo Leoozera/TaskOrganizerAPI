@@ -25,12 +25,12 @@ public class MateriaController {
 
     List<Materia> materias = new ArrayList<>();
 
-    @GetMapping("/api/ListaMateria")
+    @GetMapping("/api/materia")
     public List<Materia> index(){
         return materias;
     }
 
-    @PostMapping("/api/Materia")
+    @PostMapping("/api/materia")
         public ResponseEntity<Materia> create(@RequestBody Materia materia){
         log.info("Cadastrando usuário" + materia);
         materia.setId(materias.size() + 1l);
@@ -38,7 +38,7 @@ public class MateriaController {
         return ResponseEntity.status(HttpStatus.CREATED).body(materia);
         }
 
-    @GetMapping("/api/Materia/{id}")
+    @GetMapping("/api/materia/{id}")
     public ResponseEntity<Materia> show(@PathVariable Long id){
         log.info("Buscando materia com id " + id);
          var materiaEncontrado = materias.stream().filter(d -> d.getId().equals(id)).findFirst();
