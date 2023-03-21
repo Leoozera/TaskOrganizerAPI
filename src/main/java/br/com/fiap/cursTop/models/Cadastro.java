@@ -1,6 +1,15 @@
 package br.com.fiap.cursTop.models;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Cadastro {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
     private String nome;
     private String sobrenome;
@@ -16,6 +25,8 @@ public class Cadastro {
         this.dtNascimento = dtNascimento; 
         this.cpf = cpf;
     }
+
+    protected Cadastro (){}
 
 
     public String getNome() {
