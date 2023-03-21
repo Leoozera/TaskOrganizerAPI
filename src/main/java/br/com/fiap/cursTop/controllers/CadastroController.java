@@ -35,7 +35,7 @@ public class CadastroController {
 
     @GetMapping
     public List<Cadastro> index(){
-        return cadastros;
+        return repository.findAll();
     }
     
 

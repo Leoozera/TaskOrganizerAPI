@@ -2,8 +2,15 @@ package br.com.fiap.cursTop.models;
 
 import java.math.BigDecimal;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
 public class Materia {
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String nome;
@@ -16,6 +23,8 @@ public class Materia {
         this.tempo = tempo;
         this.descricao = descricao;
     }
+
+    public Materia(){}
 
     public String getDescricao() {
         return descricao;
