@@ -57,8 +57,12 @@ public class Materia {
         this.id = id;
     }
  
-    
+    @Override
+    public String toString(){
+        return "Materia [nome=" + nome + ", tempo=" + tempo + ", descricao=" + descricao + "]";
+    }
+    }
+
     
     
 
-}
