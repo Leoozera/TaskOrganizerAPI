@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.fiap.cursTop.models.ListarMateria;
-import br.com.fiap.cursTop.repository.ListarMateriaRepository;
+import br.com.fiap.cursTop.models.Materia;
+import br.com.fiap.cursTop.repository.MateriaRepository;
 
 
 @RestController
@@ -19,12 +19,14 @@ public class ListarMateriaContoller {
     Logger log = LoggerFactory.getLogger(ListarMateriaContoller.class);
 
     @Autowired
-    ListarMateriaRepository repository;
+    MateriaRepository repository;
 
     @GetMapping
-    public List<ListarMateria> index(){
+    public List<Materia> index(){
         return repository.findAll();
     }
+
+    
 
 
     

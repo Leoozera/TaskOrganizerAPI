@@ -6,5 +6,4 @@ import br.com.fiap.cursTop.models.Materia;
 
 public interface MateriaRepository extends JpaRepository<Materia, Long> {
 
-    
 }
