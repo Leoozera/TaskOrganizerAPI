@@ -1,7 +1,6 @@
 package br.com.fiap.cursTop.controllers;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -18,19 +17,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.cursTop.exception.RestNotFoundException;
 import br.com.fiap.cursTop.models.Materia;
 import br.com.fiap.cursTop.repository.MateriaRepository;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/api/materia")
-public class MateriaController {
+public class MateriaController{
     
     Logger log = LoggerFactory.getLogger(MateriaController.class);
 
-    List<Materia> materias = new ArrayList<>();
+    
 
     @Autowired
-    MateriaRepository repository; // IoD
+    MateriaRepository repository; // IoD spring entregando o objeto pronto para que não tenha que instanciar / injeção de dependencia.
 
     @GetMapping
     public List<Materia> index(){
@@ -38,47 +39,41 @@ public class MateriaController {
     }
 
     @PostMapping
-        public ResponseEntity<Materia> create(@RequestBody Materia materia){
-        log.info("Cadastrando materia" + materia);
+    public ResponseEntity<Object> create(@RequestBody @Valid Materia materia){
+        //if(result.hasErrors()) return ResponseEntity.badRequest().body(new RestValidationError("erro de validação")); // ao inves de fazer o buld com o badRequest, uso o body e passo um objeto(model) e como no método é dito que a resposta é um responde entity de materia vai dar erro por isso trocamos por Object (tudo é object)
         
-            repository.save(materia);
+        log.info("Cadastrando materia " + materia.getNome());
+        
+        repository.save(materia);
     
         return ResponseEntity.status(HttpStatus.CREATED).body(materia);
-        }
+    }
 
     @GetMapping("{id}")
     public ResponseEntity<Materia> show(@PathVariable Long id){
         log.info("Buscando materia com id " + id);
-         var materiaEncontrado = repository.findById(id);
+         var materia = getMateria(id);
     
-        if(materiaEncontrado.isEmpty())
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-    
-        return ResponseEntity.ok(materiaEncontrado.get());
+        return ResponseEntity.ok(materia);
     
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Materia> destory(@PathVariable Long id){
         log.info("Apagando materia com id " + id);
-        var materiaEncontrado = repository.findById(id);
+        var materia = getMateria(id);
 
-        if(materiaEncontrado.isEmpty())
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        repository.delete(materiaEncontrado.get());
+        repository.delete(materia);
 
         return ResponseEntity.noContent().build();
 
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Materia> update(@PathVariable Long id, @RequestBody Materia materia){
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody @Valid Materia materia) {
+        //if(result.hasErrors()) return ResponseEntity.badRequest().body(new RestValidationError("erro de validação")); 
         log.info("Atualizando materia com id " + id);
-        var materiaEncontrado = repository.findById(id);
-
-        if(materiaEncontrado.isEmpty())
-             return ResponseEntity.notFound().build();
+       getMateria(id);
 
         
         materia.setId(id);
@@ -87,6 +82,10 @@ public class MateriaController {
 
         return ResponseEntity.status(HttpStatus.OK).body(materia);
 
+    }
+
+    private Materia getMateria(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("materia não encontrada"));
     }
 
 

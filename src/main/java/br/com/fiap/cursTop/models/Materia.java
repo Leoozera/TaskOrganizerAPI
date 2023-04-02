@@ -6,21 +6,31 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class Materia {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-    
+
+    @NotEmpty
     private String nome;
-    private BigDecimal tempo;
+
+    @Min(0) @NotNull
+
+    private BigDecimal duracao;
+
+    @NotEmpty @Size(min = 5, max = 255)
     private String descricao;
     
     
-    public Materia(String nome, BigDecimal tempo, String descricao) {
+    public Materia(String nome, BigDecimal duracao, String descricao) {
         this.nome = nome;
-        this.tempo = tempo;
+        this.duracao = duracao;
         this.descricao = descricao;
     }
 
@@ -42,12 +52,12 @@ public class Materia {
         this.nome = nome;
     }
 
-    public BigDecimal getTempo() {
-        return tempo;
+    public BigDecimal getduracao() {
+        return duracao;
     }
 
-    public void setTempo(BigDecimal tempo) {
-        this.tempo = tempo;
+    public void setduracao(BigDecimal duracao) {
+        this.duracao = duracao;
     }
     public Long getId() {
         return id;
@@ -59,7 +69,7 @@ public class Materia {
  
     @Override
     public String toString(){
-        return "Materia [nome=" + nome + ", tempo=" + tempo + ", descricao=" + descricao + "]";
+        return "Materia [nome=" + nome + ", duracao=" + duracao + ", descricao=" + descricao + "]";
     }
     }
 

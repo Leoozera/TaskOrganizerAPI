@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.com.fiap.cursTop.exception.RestNotFoundException;
 import br.com.fiap.cursTop.models.Cadastro;
 import br.com.fiap.cursTop.repository.CadastroRepository;
+import jakarta.validation.Valid;
 
 
 @RestController
@@ -40,7 +42,7 @@ public class CadastroController {
     
 
     @PostMapping
-        public ResponseEntity<Cadastro> create(@RequestBody Cadastro cadastro){
+        public ResponseEntity<Cadastro> create(@RequestBody @Valid Cadastro cadastro){
         log.info("Cadastrando usuário" + cadastro);
 
         repository.save(cadastro);
@@ -52,36 +54,27 @@ public class CadastroController {
     @GetMapping("{id}")
     public ResponseEntity<Cadastro> show(@PathVariable Long id){
         log.info("Buscando usuario com id " + id);
-        var cadastroEncontrado = repository.findById(id);
+        var cadastro = getcadastro(id);
 
-        if(cadastroEncontrado.isEmpty())
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        return ResponseEntity.ok(cadastroEncontrado.get());
+        return ResponseEntity.ok(cadastro);
 
     }
 
     @DeleteMapping("{id}")
     public ResponseEntity<Cadastro> destory(@PathVariable Long id){
         log.info("Apagando usuario com id " + id);
-        var cadastroEncontrado = repository.findById(id);
+        var cadastro = getcadastro(id);
 
-        if(cadastroEncontrado.isEmpty())
-             return ResponseEntity.notFound().build();
-
-        repository.delete(cadastroEncontrado.get());
+        repository.delete(cadastro);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Cadastro> update(@PathVariable Long id, @RequestBody Cadastro cadastro){
+    public ResponseEntity<Cadastro> update(@PathVariable Long id, @RequestBody @Valid Cadastro cadastro){
         log.info("Atualizando usuario com id " + id);
-        var cadastroEncontrado = repository.findById(id);
-
-        if(cadastroEncontrado.isEmpty())
-             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        getcadastro(id);
 
         cadastro.setId(id);
         repository.save(cadastro);
@@ -91,6 +84,9 @@ public class CadastroController {
     }
 
 
+    private Cadastro getcadastro(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("cadastro não encontrada"));
+    }
 
 }
 

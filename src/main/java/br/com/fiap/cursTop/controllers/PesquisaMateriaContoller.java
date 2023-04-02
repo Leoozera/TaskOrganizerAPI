@@ -14,9 +14,9 @@ import br.com.fiap.cursTop.repository.MateriaRepository;
 
 
 @RestController
-public class ListarMateriaContoller {
+public class PesquisaMateriaContoller {
 
-    Logger log = LoggerFactory.getLogger(ListarMateriaContoller.class);
+    Logger log = LoggerFactory.getLogger(PesquisaMateriaContoller.class);
 
     @Autowired
     MateriaRepository repository;
