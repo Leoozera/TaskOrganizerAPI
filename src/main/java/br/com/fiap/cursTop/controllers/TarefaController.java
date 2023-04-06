@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.cursTop.exception.RestNotFoundException;
-import br.com.fiap.cursTop.models.Cadastro;
 import br.com.fiap.cursTop.models.Tarefa;
 import br.com.fiap.cursTop.repository.TarefaRepository;
 import jakarta.validation.Valid;
