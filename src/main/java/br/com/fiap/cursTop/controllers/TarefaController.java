@@ -18,70 +18,71 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.cursTop.exception.RestNotFoundException;
 import br.com.fiap.cursTop.models.Cadastro;
-import br.com.fiap.cursTop.repository.CadastroRepository;
+import br.com.fiap.cursTop.models.Tarefa;
+import br.com.fiap.cursTop.repository.TarefaRepository;
 import jakarta.validation.Valid;
 
 
 @RestController
-@RequestMapping("/api/cadastro")
-public class CadastroController {
+@RequestMapping("/api/tarefa")
+public class TarefaController {
 
-    Logger log = LoggerFactory.getLogger(CadastroController.class);
+    Logger log = LoggerFactory.getLogger(TarefaController.class);
 
     @Autowired
-    CadastroRepository repository; // IoD
+    TarefaRepository repository; // IoD
 
 
     @GetMapping
-    public List<Cadastro> index(){
+    public List<Tarefa> index(){
         return repository.findAll();
     }
     
 
     @PostMapping
-        public ResponseEntity<Cadastro> create(@RequestBody @Valid Cadastro cadastro){
-        log.info("Cadastrando usuário" + cadastro);
+        public ResponseEntity<Tarefa> create(@RequestBody @Valid Tarefa tarefa){
+        log.info("Cadastrando tarefa" + tarefa);
 
-        repository.save(cadastro);
+        repository.save(tarefa);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(cadastro);
+        return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);
         }
 
 
     @GetMapping("{id}")
-    public ResponseEntity<Cadastro> show(@PathVariable Long id){
-        log.info("Buscando usuario com id " + id);
-        var cadastro = getcadastro(id);
+    public ResponseEntity<Tarefa> show(@PathVariable Long id){
+        log.info("Buscando tarefa com id " + id);
+        var tarefa = getTarefa(id);
 
-        return ResponseEntity.ok(cadastro);
+        return ResponseEntity.ok(tarefa);
 
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Cadastro> destory(@PathVariable Long id){
-        log.info("Apagando usuario com id " + id);
-        var cadastro = getcadastro(id);
+    public ResponseEntity<Tarefa> destory(@PathVariable Long id){
+        log.info("Apagando tarefa com id " + id);
+        var tarefa = getTarefa(id);
 
-        repository.delete(cadastro);
+        repository.delete(tarefa);
 
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Cadastro> update(@PathVariable Long id, @RequestBody @Valid Cadastro cadastro){
+    public ResponseEntity<Tarefa> update(@PathVariable Long id, @RequestBody @Valid Tarefa tarefa){
         log.info("Atualizando usuario com id " + id);
-        getcadastro(id);
+        getTarefa(id);
 
-        cadastro.setId(id);
-        repository.save(cadastro);
+        tarefa.setId(id);
+        repository.save(tarefa);
 
-        return ResponseEntity.ok(cadastro);
+        return ResponseEntity.ok(tarefa);
 
     }
 
 
-    private Cadastro getcadastro(Long id) {
+    private Tarefa getTarefa(Long id) {
         return repository.findById(id).orElseThrow(() -> new RestNotFoundException("cadastro não encontrada"));
     }
 
