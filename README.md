@@ -9,7 +9,7 @@ Uma API para sistema de um curso online
 - Principal
     - professores
     - aulas
-    - turmas
+    - [tarefa](#tarefa)
     - [matéria](#matéria)
     - [listar matéria](#listarMateria)
 
@@ -69,6 +69,54 @@ Uma API para sistema de um curso online
 |201 | dados do cadastro retornados 
 |404 | não existe esse cadastro
 
+### Tarefa
+
+`POST` /CursTop/api/tarefa
+
+| campo | tipo | obrigatório | descrição 
+|-------|------|:-------------:|---
+|titulo | Texto | sim | Titulo da tarefa
+|descricao | Texto | sim | Descrição da tarefa
+|Materia | Materia | sim | Materia a qual a tarefa pertence
+
+**Exemplo de corpo de requisição**
+
+```
+{
+    "titulo": "Criar os End Points",
+    "descricao": "Criar a documentação com os end points do projeto" ,
+    "materia": "Java Spring "
+}
+```
+
+**Respostas**
+
+|código | descrição |
+|-|-
+|201 | cadastro da tarefa concluido
+|400 | campos faltantes
+|400 | dados já registrados
+
+
+`GET` /CursTop/api/materia/tarefa{id}
+
+**Exemplo de corpo de resposta**
+
+```
+{
+    "titulo": "Documentação do Projeto",
+    "Descricao":"Criar a documentação do projeto com base no que foi visto em aula, Criar a lista de endpoints, verbos e codigo de status "
+}
+```
+**Codigo de Respostas**
+
+|código | descrição |
+|-|-
+|201 | tarefa retornada 
+|404 | não tarefa cadastrada
+
+
+
 ### Matéria
 
 `POST` /CursTop/api/materia
@@ -90,8 +138,9 @@ Uma API para sistema de um curso online
 
 |código | descrição |
 |-|-
-|201 | pesquisa concluida
-|400 | campos invalidos
+|201 | cadastro da materia concluido
+|400 | campos faltantes
+|400 | dados já registrados
 
 ### ListarMateria
 

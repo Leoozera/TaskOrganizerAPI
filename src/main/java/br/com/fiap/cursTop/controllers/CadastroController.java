@@ -1,6 +1,5 @@
 package br.com.fiap.cursTop.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -28,8 +27,6 @@ import jakarta.validation.Valid;
 public class CadastroController {
 
     Logger log = LoggerFactory.getLogger(CadastroController.class);
-
-    List<Cadastro> cadastros = new ArrayList<>();
 
     @Autowired
     CadastroRepository repository; // IoD

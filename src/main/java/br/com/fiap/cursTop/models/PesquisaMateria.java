@@ -5,7 +5,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Data;
 
+@Data
 public class PesquisaMateria {
 
     @Id
@@ -16,33 +18,6 @@ public class PesquisaMateria {
 
     @NotNull
     private String nome;
-
-    public PesquisaMateria(String nome) {
-        this.nome = nome;
-    }
-
-    public PesquisaMateria(){}
-
-
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-
-    public Long getId() {
-        return id;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
 
    
