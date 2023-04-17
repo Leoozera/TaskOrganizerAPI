@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.fiap.cursTop.exception.RestNotFoundException;
@@ -33,8 +34,8 @@ public class TarefaController {
 
 
     @GetMapping
-    public List<Tarefa> index(){
-        return repository.findAll();
+    public List<Tarefa> index(@RequestParam String descricao){
+        return repository.findByDescricao(descricao);
     }
     
 
