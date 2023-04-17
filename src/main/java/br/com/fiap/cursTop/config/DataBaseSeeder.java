@@ -27,7 +27,7 @@ public class DataBaseSeeder implements CommandLineRunner{
         Materia m4 = new Materia(4L, "Big Data", new BigDecimal(50), "Big data é a área do conhecimento que estuda como tratar, analisar e obter informações a partir de conjuntos de dados muito grandes");
         materiaRepository.saveAll(List.of(m1,m2,m3,m4));
 
-        tarefaRepository .saveAll(List.of(
+        tarefaRepository.saveAll(List.of(
             Tarefa.builder().titulo("Espacamento interno").descricao("padding").materia(m3).build(),
             Tarefa.builder().titulo("Espacamento externo").descricao("Exercicios para treinar uso de margin dentro no bloco main").materia(m3).build(),
             Tarefa.builder().titulo("Sombra").descricao("Exercicios para treinar uso de shadow bow dentro no bloco main").materia(m3).build(),
