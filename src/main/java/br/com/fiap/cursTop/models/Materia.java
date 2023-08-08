@@ -6,35 +6,28 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
+@EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
 public class Materia {
-    @Id
+	@Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotEmpty
+    @NotNull
     private String nome;
-
-    @Min(0) @NotNull
-
+    @Min(0) 
+    @NotNull
     private BigDecimal duracao;
-
-    @NotEmpty @Size(min = 5, max = 255)
+    @NotNull
+    @Size(min = 5, max = 255)
     private String descricao;
-    
     }
-
-    
-    
-
