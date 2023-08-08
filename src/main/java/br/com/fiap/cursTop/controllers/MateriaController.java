@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import br.com.fiap.cursTop.repository.MateriaRepository;
 import jakarta.validation.Valid;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/materia")
 public class MateriaController {
 
@@ -72,7 +74,7 @@ public class MateriaController {
     public ResponseEntity<Materia> destory(@PathVariable Long id) {
         log.info("Realizando exclusão de matéria com id: " + id);
         var materia = getMateria(id);
-
+        log.info(materia.getNome());
         repository.delete(materia);
 
         return ResponseEntity.noContent().build();
