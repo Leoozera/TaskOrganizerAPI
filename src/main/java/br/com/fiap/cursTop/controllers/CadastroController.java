@@ -29,38 +29,47 @@ public class CadastroController {
     Logger log = LoggerFactory.getLogger(CadastroController.class);
 
     @Autowired
-    CadastroRepository repository; // IoD
-
+    CadastroRepository repository;
 
     @GetMapping
-    public List<Cadastro> index(){
+    public List<Cadastro> index() {
+        log.info("Realizando listagem de cadastros");
+
         return repository.findAll();
     }
-    
+
+    @GetMapping("{id}")
+    public ResponseEntity<Cadastro> show(@PathVariable Long id) {
+        log.info("Realizando busca de cadastro com id: " + id);
+        Cadastro cadastro = getCadastro(id);
+
+        return ResponseEntity.ok(cadastro);
+    }
+
+    @PutMapping("{id}")
+    public ResponseEntity<Cadastro> update(@PathVariable Long id, @RequestBody @Valid Cadastro cadastro) {
+        log.info("Realizando atualização do cadastro com id: " + id);
+        getCadastro(id);
+
+        cadastro.setId(id);
+        repository.save(cadastro);
+
+        return ResponseEntity.ok(cadastro);
+    }
 
     @PostMapping
-        public ResponseEntity<Cadastro> create(@RequestBody @Valid Cadastro cadastro){
-        log.info("Cadastrando usuário" + cadastro);
+    public ResponseEntity<Cadastro> create(@RequestBody @Valid Cadastro cadastro) {
+        log.info("Realizando cadastro de usuário com email: " + cadastro.getEmail());
 
         repository.save(cadastro);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(cadastro);
-        }
-
-
-    @GetMapping("{id}")
-    public ResponseEntity<Cadastro> show(@PathVariable Long id){
-        log.info("Buscando usuario com id " + id);
-        var cadastro = getcadastro(id);
-
-        return ResponseEntity.ok(cadastro);
-
     }
 
     @DeleteMapping("{id}")
-    public ResponseEntity<Cadastro> destory(@PathVariable Long id){
-        log.info("Apagando usuario com id " + id);
-        var cadastro = getcadastro(id);
+    public ResponseEntity<Cadastro> destory(@PathVariable Long id) {
+        log.info("Realizando exclusão de usuário com id: " + id);
+        Cadastro cadastro = getCadastro(id);
 
         repository.delete(cadastro);
 
@@ -68,21 +77,9 @@ public class CadastroController {
 
     }
 
-    @PutMapping("{id}")
-    public ResponseEntity<Cadastro> update(@PathVariable Long id, @RequestBody @Valid Cadastro cadastro){
-        log.info("Atualizando usuario com id " + id);
-        getcadastro(id);
 
-        cadastro.setId(id);
-        repository.save(cadastro);
-
-        return ResponseEntity.ok(cadastro);
-
-    }
-
-
-    private Cadastro getcadastro(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("cadastro não encontrada"));
+    private Cadastro getCadastro(Long id) {
+        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("Ocorreu um erro ao realizar a busca do cadastro de id:" + id));
     }
 
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import br.com.fiap.cursTop.models.RestValidationError;
+import br.com.fiap.cursTop.exception.RestValidationException;
 
 @RestControllerAdvice
 public class RestExceptionHandler {
@@ -18,12 +18,13 @@ public class RestExceptionHandler {
     Logger log = LoggerFactory.getLogger(getClass());
     
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<List<RestValidationError>> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
-        log.error("erro de validacao");
-        List<RestValidationError> erros = new ArrayList<>();
-        e.getFieldErrors().forEach(v -> erros.add(new RestValidationError(v.getField(), v.getDefaultMessage())));
+    public ResponseEntity<List<RestValidationException>> methodArgumentNotValidExceptionHandler(MethodArgumentNotValidException e){
+        log.error("Ocorreu um erro de validação");
 
-        return ResponseEntity.badRequest().body(erros);
+        List<RestValidationException> errors = new ArrayList<>();
+        e.getFieldErrors().forEach(error -> errors.add(new RestValidationException(error.getField(), error.getDefaultMessage())));
+
+        return ResponseEntity.badRequest().body(errors);
     }
 
 }

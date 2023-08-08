@@ -9,11 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 
 import br.com.fiap.cursTop.models.Tarefa;
 
-public interface TarefaRepository extends JpaRepository <Tarefa, Long>{
-
-    
-    Page<Tarefa> findByDescricaoContaining (String descricao, Pageable pageable);
-
-   
-    
+public interface TarefaRepository extends JpaRepository<Tarefa, Long> {
+    Page<Tarefa> findByDescricaoContaining(String descricao, Pageable pageable);
 }

@@ -29,7 +29,8 @@ public class Cadastro {
     @NotNull
     private String dtNascimento;
 
-    @NotNull @Size(min = 11)
+    @NotNull
+    @Size(min = 11)
     private String cpf;
 
 }

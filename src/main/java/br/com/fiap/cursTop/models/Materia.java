@@ -19,15 +19,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 public class Materia {
-	@Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @NotNull
     private String nome;
-    @Min(0) 
+
+    @Min(0)
     @NotNull
     private BigDecimal duracao;
+
     @NotNull
     @Size(min = 5, max = 255)
     private String descricao;
-    }
+}

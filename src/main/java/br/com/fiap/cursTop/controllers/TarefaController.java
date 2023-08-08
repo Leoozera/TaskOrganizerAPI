@@ -31,64 +31,62 @@ import jakarta.validation.Valid;
 public class TarefaController {
 
     Logger log = LoggerFactory.getLogger(TarefaController.class);
-
     @Autowired
     TarefaRepository repository; // IoD
 
 
     @GetMapping
-    public Page<Tarefa> index(@RequestParam (required = false)String descricao, @PageableDefault(size = 5) Pageable pageable){
-        if(descricao == null) return repository.findAll(pageable);
+    public Page<Tarefa> index(@RequestParam(required = false) String descricao, @PageableDefault(size = 5) Pageable pageable) {
+        log.info("Realizando listagem de tarefas");
+        if (descricao == null) return repository.findAll(pageable);
 
         return repository.findByDescricaoContaining(descricao, pageable);
     }
-    
-
-    @PostMapping
-        public ResponseEntity<Tarefa> create(@RequestBody @Valid Tarefa tarefa){
-        log.info("Cadastrando tarefa" + tarefa);
-
-        repository.save(tarefa);
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);
-        }
-
 
     @GetMapping("{id}")
-    public ResponseEntity<Tarefa> show(@PathVariable Long id){
-        log.info("Buscando tarefa com id " + id);
+    public ResponseEntity<Tarefa> show(@PathVariable Long id) {
+        log.info("Realizando busca de tarefa com id: " + id);
         var tarefa = getTarefa(id);
 
         return ResponseEntity.ok(tarefa);
 
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Tarefa> destory(@PathVariable Long id){
-        log.info("Apagando tarefa com id " + id);
-        var tarefa = getTarefa(id);
-
-        repository.delete(tarefa);
-
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-
-    }
-
     @PutMapping("{id}")
-    public ResponseEntity<Tarefa> update(@PathVariable Long id, @RequestBody @Valid Tarefa tarefa){
-        log.info("Atualizando usuario com id " + id);
+    public ResponseEntity<Tarefa> update(@PathVariable Long id, @RequestBody @Valid Tarefa tarefa) {
+        log.info("Realizando atualização de tarefa com id: " + id);
         getTarefa(id);
 
         tarefa.setId(id);
         repository.save(tarefa);
 
         return ResponseEntity.ok(tarefa);
+    }
 
+
+    @PostMapping
+    public ResponseEntity<Tarefa> create(@RequestBody @Valid Tarefa tarefa) {
+        log.info("Realizando cadastro de tarefa com título: " + tarefa.getTitulo());
+
+        repository.save(tarefa);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(tarefa);
+    }
+
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Tarefa> destory(@PathVariable Long id) {
+        log.info("Realizando exclusão de tarefa com id: " + id);
+        var tarefa = getTarefa(id);
+
+        repository.delete(tarefa);
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 
 
     private Tarefa getTarefa(Long id) {
-        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("cadastro não encontrada"));
+        return repository.findById(id).orElseThrow(() -> new RestNotFoundException("Ocorreu um erro ao realizar a busca da tarefa de id:" + id));
     }
 
 }

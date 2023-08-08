@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class DataBaseSeeder implements CommandLineRunner {
 
-    @Autowired 
+    @Autowired
     MateriaRepository materiaRepository;
 
     @Autowired
@@ -27,10 +27,9 @@ public class DataBaseSeeder implements CommandLineRunner {
         materiaRepository.saveAll(List.of(m1));
 
         tarefaRepository.saveAll(List.of(
-            Tarefa.builder().titulo("Aprimoramento em Machine learning").descricao("Exercicios para treinar uso de redes neurais.").materia(m1).build()
+                Tarefa.builder().titulo("Aprimoramento em Machine learning").descricao("Exercicios para treinar uso de redes neurais.").materia(m1).build()
         ));
     }
 
-    
-    
+
 }

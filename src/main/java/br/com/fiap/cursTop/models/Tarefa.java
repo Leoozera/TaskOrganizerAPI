@@ -18,7 +18,6 @@ import lombok.Data;
 @Entity
 @AllArgsConstructor
 public class Tarefa {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -32,6 +31,4 @@ public class Tarefa {
     @NotNull
     @ManyToOne
     private Materia materia;
-
-    
 }
